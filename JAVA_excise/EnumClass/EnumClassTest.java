@@ -1,3 +1,4 @@
+
 public class EnumClassTest
 {
 	public void judge(SeasonEnum se)
