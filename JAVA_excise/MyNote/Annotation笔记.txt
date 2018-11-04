@@ -8,3 +8,21 @@ JAVA提供了5个基本注解：
 3. @SupressWarning，关闭程序元素及子元素的编译告警。
 4. @SafeVarargs，抑制堆污染告警。
 5. @FunctionalInterface，为Lambda表达式定义的函数式接口，内部只能包含一个抽象函数（可以包含其他default和静态函数）。
+除了5个基本注解之外，JAVA还提供了6个元注解，其中的5个注解用于修饰其他注解定义。
+1. @Retention 用于修饰注解定义，指定被修饰的注解可以保留多长时间。其包含一个value变量（RetentionPolicy类型），使用该注解时必须指定该值。
+2. @Target只能修饰注解定义，用于指定被修饰的注解能用于修饰哪些程序单元。
+3. @Documented用于指定注解类将被javadoc工具提取成文档。
+4. @Inherited元注解指定被它修饰的注解将具有继承性，即：使用了该元注解定义的注解@XXX，子类将自动被@XXX修饰。
+5. @Repeatable用于定义JAVA 8新增的重复注解。
+自定义注解：自定义注解使用@interface关键字，与定义接口非常像。定义一个简单的注解类型：
+public @interface Test
+{
+	String name(); //此处不是方法，而是注解的属性变量。可以指定默认值：String name() default "abc";
+	int age();
+}
+定义该注解之后，可以在任何位置使用该注解，修饰任何程序元素，包括类、接口、方法等。按照以上定义注解后，使用如下：
+@Test(name="XX",age=12)
+public void xxx(){}
+根据注解是否可以包含成员变量，可以把注解分为如下两位：
+标记注解：没有定义成员变量的注解类型被称为标记。
+元数据注解：包含成员变量的注解。
