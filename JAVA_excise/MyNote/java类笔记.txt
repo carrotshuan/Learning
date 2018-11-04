@@ -139,6 +139,22 @@
 	强制垃圾回收的两种方法：System.gc()和Runtime.getRuntime().gc()。
 	JAVA语言对象的引用有四种方式：1.强引用 2.软引用 3.弱引用 4.虚引用。
 
+Jar包操作：
+1. 创建jar cvf target.jar -C sourceDir/ targetDir/ 源文件夹下
+2. 解压jar xvf target.jar 
+3. 查看jar tvf target.jar 不会进行解压动作
+
+发布java程序的三种方式：
+1. 平台相关编译编译成可执行文件，失去跨平台特性；
+2. 编辑一个批处理文件，使用javaw进行解析执行；
+3. 使用java cvfe target.jar packageClass.MainClass targetDir/ 
+   解释：将targetDir目录下main所在类packageClass.MainClass为入口点，创建出target.jar包。-e参数指定jar包执行的入口点。
+
+运行jar包：
+1. java -jar target.jar
+2. javaw target.jar
+
+
 	
 
 
