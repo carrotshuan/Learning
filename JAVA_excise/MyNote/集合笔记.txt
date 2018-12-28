@@ -1,3 +1,30 @@
 为了保存数量不确定的数据，以及保存具有映射关系的数据，JAVA提供了集合类。集合类主要负责保存、盛装其他数据，因此也称为容器类。所有的集合类都位于java.util包下。
 与数组的区别：数组里元素可以是基本类型，也可以是对象，而集合里的元素只能是对象。
-JAVA集合类主要由两个接口派生而来：Collection和Map。Set和List是其子接口，代表无序及有序集合，Queue是其队列实现。
+JAVA由Set, Queue, List(SQL)和Map四种体系。主要由两个接口派生而来：Collection和Map。Collection是Set、List和Queue的父接口，Set和List代表无序及有序集合，Queue是其队列实现。
+Collection接口定义了如下操作集合元素的方法：
+add、addAll、clear、contains、containsAll、isEmpty、iterator、remove、removeAll、retainAll、size、toArray。
+
+JAVA 8为Iterable接口新增了forEach(Consumer action)默认方法，其中action是一个函数式接口（内部只包含一个抽象函数的接口），Collection接口是Iterable的子接口，所以也可以使用forEach()来遍历每个元素。遍历方式可以采用Lambda表达式实现。var.forEach(obj -> { operate obj })。
+Iterator接口也是Java集合框架提供的统一接口之一，仅用于遍历集合，本身不提供盛装对象能力。该接口包含如下四个方法：hasNext、next、remove、forEachRemaining。在使用Iterator进行迭代时，仅可以通过remove删除上次访问next()的成员，否则不可进行元素更改。
+
+在使用HashSet保存对象时，除了要重写对象的equal()方法外，还需要重写HashCode()方法。如果两个对象equal()方法返回true，则应该保证HashCode()也返回相同值，此时HashSet才认为两个是同一个对象。避免出现两个对象值相同，但仍然可以存储在Set集合中的情况，这与Set集合的规定不符。
+注意：还有一种情况是存在equal()不同，但HashCode()相同的情况，对应不同值对应到同一个哈希值存储位置这一场景，此时Set会按照同一位置链表的情况进行存储，但会导致性能下降，所以应该尽量避免这种情况。
+
+泛型
+JAVA引入参数化类型的概念，允许程序在创建时指定集合元素的类型，这种参数化的类型被称为泛型。主要保持集合元素种类的一致性和避免类转换异常的发生。
+往集合中添加元素，JAVA必须要先确定元素的类型，否则无法添加。
+在使用List<?>这种形式时，表明：List<?> 集合指定这个List集合可以是任何泛型List的父类。List<String>代表执行String的List，List<Object>代表指向Object类型的指针，JAVA中这两种指针不是一类！同理，List<?>则代表可以指向或盛装任何类型的List。
+List<? extends Shape>代表盛装的只能是Shape的子类的List，这种被限制的泛型通配符，且只能是某个类的子类，叫做通配符上限。型变
+指定通配符上限的集合，只能从通配符集合中取元素，无法往里添加元素，因为类型此时是不确定的。
+List<? super Shape>代表盛装的元素都是Shape的父类，这种称为通配符下限。这种是可以往里添加元素的，因为其元素一定是父类，将子类对象考到父类集合中是可以的，如将String对象拷贝到Object集合中。逆变
+以上两种都是在方法的形参中限定类型，其实在定义类时也可以指定形参的上限。如：public class Shape<T extends Object>，限定传给该类的类型参数必须是Object的子类。
+
+泛型方法
+在声明方法时，定义一个或多个泛型形参，格式如下：
+修饰符 <T, S,...> 返回值类型 function(形参列表)，其中，<T, S,...>就是泛型形参。
+
+泛型方法与类型通配符的区别：
+不同的调用点传入不同的类型，用通配符
+泛型形参被或返回值用来表示方法的一个或多个参数之间的类型依赖关系，用泛型方法。
+
+泛型擦除：当把一个具有泛型信息的对象赋给另一个没有泛型信息的变量时，所有尖括号之间的类型信息都将被扔掉，这叫做泛型的擦除。

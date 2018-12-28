@@ -1,0 +1,15 @@
+Bean
+	按照一定约定规范实现的类或对象，如对不依赖任何框架的普通java对象POJO，每个属性都添加了getter()和setter()描述，就是一个bean。
+依赖注入DI
+	将多个Bean之间的依赖通过参数等形式进行分离，运行时进行解析传递。
+装配
+	创建应用程序之间协作的行为通常称为装配(wiring)，spring有多种装配方式，XML，java配置。
+	基于XML的装配，利用XML描述各个bean的依赖对象。
+	基于java配置的装配，利用java的@Configuration和@Bean注解描述这种依赖关系。
+
+应用上下文
+	java通过应用上下文(Application Context)来装配Bean的定义，并把他们组装起来。应用上下文全权负责Bean的创建及组装。
+	不同的装配方法对应不同的应用上下文，XML方式对应的应用上下文为：ClassPathXmlApplicationContext。
+
+面向切面编程AOP
+	DI使相互协作的组件保持松耦合，而AOP则将遍布应用各处的功能分离出来，组成可重用的组件。
